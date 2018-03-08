@@ -1,0 +1,84 @@
+# The biggest challenge will be to keep lists in sync with International and free toast host
+# Volunteers should be identified by their email address (there is the authoritative members list and the less authorotative freetoasthost guest list)
+
+# Print role call
+# Print "Pokemasters
+
+
+Client
+# Name
+# EMail 
+# Web URL
+- Toastmasters
+
+Chapter
+# Name
+# EMail
+# URL
+
+
+Volunteers
+* email (string, unique constraint)
+* cell
+* tieBreakerUUID
+* positionID
+* created_at
+* lastSynched
+* lastRequest
+* lastAssignment
+* chapterID
+* dontBugUntil (date)
+* dontBugEver
+* dontBugEverBecause
+* isMember
+
+Users
+* volunteerID
+* password
+* enabled (default to true)
+
+
+Roles
+* Chair
+* Instructions
+* Equipement
+* ....
+* speech1
+* speech2
+* speech3
+
+
+Positions
+# Not sure if this is needed
+* Name
+* Rank
+- Guest
+- Member
+- Senior
+- Executive
+- Alumni
+
+Meetings
+* date
+* location
+* agendaURL
+* type (Regular, Executive, Contest)
+
+MeetingTypes
+# Future version
+
+
+Requests
+# An email
+* accessUUID
+* volunteer
+* preferedRole
+* meeting
+
+
+Assignments
+#Volunteers x Meetings x Roles
+* volunteerID
+* meetingID
+* role
+* missedOut (boolean)
