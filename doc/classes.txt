@@ -7,7 +7,7 @@
 
 Client
 # Name
-# EMail 
+# EMail
 # Web URL
 - Toastmasters
 
@@ -30,7 +30,13 @@ Volunteers
 * dontBugUntil (date)
 * dontBugEver
 * dontBugEverBecause
-* isMember
+* nextRoleId
+
+PositionTags
+- Member
+- Alumni
+- Executive
+
 
 Users
 * volunteerID
@@ -43,29 +49,21 @@ Roles
 * Instructions
 * Equipement
 * ....
-* speech1
-* speech2
-* speech3
+* Speech
+x nextRole()
 
+Rules
+* forRoleID
+* requiresRoleID
+* requiresPositionID
+* nbTimes
 
-Positions
-# Not sure if this is needed
-* Name
-* Rank
-- Guest
-- Member
-- Senior
-- Executive
-- Alumni
 
 Meetings
 * date
 * location
 * agendaURL
 * type (Regular, Executive, Contest)
-
-MeetingTypes
-# Future version
 
 
 Requests
