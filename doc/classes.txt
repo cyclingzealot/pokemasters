@@ -1,36 +1,55 @@
 # The biggest challenge will be to keep lists in sync with International and free toast host
 # Volunteers should be identified by their email address (there is the authoritative members list and the less authorotative freetoasthost guest list)
 
-# Print role call
-# Print "Pokemasters
+# What happens when there is an empty role and no volunteers have that role as next role ID?
+
+# For the next 4 meetings:
+## 36 hours before meeting, send panic email to all active members if empty critical roles.   Break from loop, don't look at other meetings
+## Up until 6 days before meeting search for active volunteer who has nextRoleId,
+## If none above or (between 6 days and 36 hours before and still empty roles), switch to to active volunteer to have this role earliest,
+
+# Define active:
+- is member or
+- Guest last 6 months
+- Alumni last 3 years
+
+
+# What is the algorithm to determine when a next person's role is a 2nd or Nth speech?
+- No speech in last 30 days
+- Just intermingle the order of roles with speeches
+
+# Print volunteer list with next role
+
+# Print role list with active volunteer who has it as next role, sorted by date of last assignment
 
 
 Client
-# Name
-# EMail
+# Name (not null, unique)
+# EMail (not null)
 # Web URL
 - Toastmasters
 
 Chapter
-# Name
-# EMail
+# Name (not null, unique)
+# EMail (not null, unique)
 # URL
-
 
 Volunteers
 * email (string, unique constraint)
 * cell
-* tieBreakerUUID
-* positionID
-* created_at
-* lastSynched
+* tieBreakerUUID (not null, unique)
+* created_at (not null)
+* lastSynched (not null)
 * lastRequest
 * lastAssignment
 * chapterID
 * dontBugUntil (date)
 * dontBugEver
 * dontBugEverBecause
-* nextRoleId
+* nextRoleId (not null)
+x isActive?()
+
+
 
 PositionTags
 - Member
@@ -39,44 +58,60 @@ PositionTags
 
 
 Users
-* volunteerID
-* password
-* enabled (default to true)
+* volunteerID (not null, unique)
+* password (not null)
+* enabled (not null, default to true)
 
 
 Roles
-* Chair
-* Instructions
-* Equipement
+* shortName (not null, unique)
+* englishName (not null)
+* isCritical (not null, defaults to false)
+* descriptionBlurb
+* InstructionsBlurb
+* EquipementBlurb
 * ....
-* Speech
 x nextRole()
+- Chair
+- Speech
 
 Rules
-* forRoleID
+* forRoleID (not null)
 * requiresRoleID
 * requiresPositionID
 * nbTimes
+* noticeDays
+* maxPerMeeting
 
 
 Meetings
-* date
+* dateTime (not null)
 * location
-* agendaURL
+* agendaUUID (not null, unique)
 * type (Regular, Executive, Contest)
+x missingCritical? ()
 
 
 Requests
-# An email
-* accessUUID
-* volunteer
-* preferedRole
-* meeting
+# An email (not null)
+* volunteerID (not null)
+* preferedRole (not null)
+* meetingID (not null)
+* content (not null)
+* date (not null)
+* UUID (not null)
+* opened (not null, defaults to false)
 
+RequestHandler
+* RequestId (not null)
+* tsSent (not null)
+* success (not null)
+* output
 
 Assignments
 #Volunteers x Meetings x Roles
-* volunteerID
-* meetingID
-* role
-* missedOut (boolean)
+* volunteerID (not null)
+* meetingID (not null)
+* role (not null)
+* executed (boolean, null)
+x maxAssignmentPerRequest
