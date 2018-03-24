@@ -31,21 +31,26 @@ Volunteers
 * dontBugEver
 * dontBugEverBecause
 * isMember
+* userId
 
 Users
-* volunteerID
 * password
+* user
 * enabled (default to true)
 
 
 Roles
-* Chair
-* Instructions
-* Equipement
-* ....
-* speech1
-* speech2
-* speech3
+* name
+- Chair
+- Instructions
+- Equipement
+- ....
+* speech
+
+InvolvementRules
+* forRole
+* requiresRole
+* times
 
 
 Positions
