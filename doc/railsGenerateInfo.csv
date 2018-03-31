@@ -1,0 +1,65 @@
+model name	attribute	datatype	null	default	Unique
+Client	name	text	false		
+Client	email	text			true
+Client	url	text			
+Chapter	name	text	false		
+Chapter	email	text			true
+Chapter	url	text			
+Volunteer	name	text	false		
+Volunteer	email	text			true (with chapter)
+Volunteer	cell	text			true
+Volunteer	tie_breaker_uuid	text	false		true
+Volunteer	last_synched	datetime	false		
+Volunteer	last_request	reference			
+Volunteer	last_assignment	reference			
+Volunteer	chapter	reference	false		true (with chapter)
+Volunteer	dont_bug_unitl	date			
+Volunteer	dont_bug_ever	boolean			
+Volunteer	dont_bug_ever_because	text			
+Volunteer	is_member	boolean	false	false	
+Vounteer	next_role	reference	false	Timer	
+User	password	text			
+User	volunteer	reference			true
+User	enable	boolean	false	true	
+PositionTag	name	text	false		true
+Role	short_name	text	false		true
+					
+Role	human_name	text	false		true
+Role	is_critical	boolean	false	false	
+Role	description_blurb	text			
+Role	instructions_blurb	text			
+Role	better_role_blurb	text			
+Role	equipement_blurb	text			
+Role	rank	integer	false		
+					
+RoleRuleComplex	for_role	reference			
+	requires_role	reference			
+	requires_position	reference			
+	nb_times	integer			
+					
+RoleRulSimple	notice_days	integer	false	0	
+RoleRulSimple	max_assignment_per_meeting	integer	false	1	
+					
+Meeting	Date and time	dateTime	false		true
+	location	text	false		
+	agenda_uuid	text	false		true
+					
+Request	access_uuid	text	false		true
+	volunteer	reference	false		
+	prefered_role	reference	false		
+	meeting	reference	false		
+	content	text	false		
+	opened	boolean	false	false	
+	took_role	boolean	true		
+					
+RequentHandler	request	reference	false		
+	ts_sent	datetime	true		
+	ts_made	datetime	false		
+	success	boolean	true		
+	nosend_reason	text	true		
+					
+Assignment	volunteer	reference	false		
+	meeting	reference	false		
+	rôle	reference	false		
+	#Unqiue contraint volunteer x meeting x rôle				
+	mia	boolean	true		
