@@ -40,7 +40,6 @@ Volunteers
 * cell
 * tieBreakerUUID (not null, unique)
 * positionID
-* created_at (not null)
 * lastSynched (not null)
 * lastRequest
 * lastAssignment
@@ -85,16 +84,6 @@ Rules
 * nbTimes
 * noticeDays
 * maxPerMeeting
-
-Positions
-# Not sure if this is needed
-* Name
-* Rank
-- Guest
-- Member
-- Senior
-- Executive
-- Alumni
 
 Meetings
 * dateTime (not null)
