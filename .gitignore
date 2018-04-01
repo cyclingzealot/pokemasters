@@ -4,6 +4,13 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+### Project .gitignore ###############################################
+.byebug_history
+vendor/
+.~lock.*#
+
+
+
 # Ignore bundler config.
 /.bundle
 
@@ -19,9 +26,6 @@
 
 /node_modules
 /yarn-error.log
-
-#Othe gitignore
-.byebug_history
 
 *.sw?
 *.rbc
@@ -74,4 +78,3 @@ bower.json
 node_modules/
 
 
-vendor/
