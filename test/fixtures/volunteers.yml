@@ -1,31 +1,31 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyText
-  email: MyText
-  cell: MyText
-  tie_breaker_uuid: MyText
-  last_synched: 2018-04-01 11:44:27
-  last_request: one
-  last_assignment: one
-  chapter: one
-  dont_bug_unitl: 2018-04-01
-  dont_bug_ever: false
-  dont_bug_ever_because: MyText
-  is_member: false
-  next_role: one
-
-two:
-  name: MyText
-  email: MyText
-  cell: MyText
-  tie_breaker_uuid: MyText
-  last_synched: 2018-04-01 11:44:27
-  last_request: two
-  last_assignment: two
-  chapter: two
-  dont_bug_unitl: 2018-04-01
-  dont_bug_ever: false
-  dont_bug_ever_because: MyText
-  is_member: false
-  next_role: two
+#one:
+#  name: MyText
+#  email: MyText
+#  cell: MyText
+#  tie_breaker_uuid: MyText
+#  last_synched: 2018-04-01 11:44:27
+#  last_request: one
+#  last_assignment: one
+#  chapter: one
+#  dont_bug_unitl: 2018-04-01
+#  dont_bug_ever: false
+#  dont_bug_ever_because: MyText
+#  is_member: false
+#  next_role: one
+#
+#two:
+#  name: MyText
+#  email: MyText
+#  cell: MyText
+#  tie_breaker_uuid: MyText
+#  last_synched: 2018-04-01 11:44:27
+#  last_request: two
+#  last_assignment: two
+#  chapter: two
+#  dont_bug_unitl: 2018-04-01
+#  dont_bug_ever: false
+#  dont_bug_ever_because: MyText
+#  is_member: false
+#  next_role: two
