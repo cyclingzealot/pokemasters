@@ -1,5 +1,5 @@
 class Volunteer < ApplicationRecord
-    include UpdatableFromCsv
+    extend UpdatableFromCsv
 #class Volunteer < ApplicationRecord
     #belongs_to :last_request
     #belongs_to :last_assignment
