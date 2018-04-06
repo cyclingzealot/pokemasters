@@ -37,7 +37,9 @@ class VolunteerTest < ActiveSupport::TestCase
 
         meeting = Meeting.findByDate(date)
 
-        meeting.assign(member, "Chair")
+        role = Role.findByShortName("Chair")
+
+        meeting.assign(member, role)
 
         assignments = meeting.assignments
 
