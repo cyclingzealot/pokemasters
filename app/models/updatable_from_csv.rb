@@ -31,6 +31,23 @@ module UpdatableFromCsv
     end
 
 
+    def guessMapping(csvFileObj, mapping)
+        if mapping.nil?
+            if self.class.const_defined?('IMPORT_MAPPING')
+                mapping = self::IMPORT_MAPPING
+            elsif self.respond_to?('getImportMapping')
+                mapping = self::getImportMapping(csvFileObj)
+            else
+                raise "No mapping defined: all mapping argument, #{self.name}.IMPORT_MAPPING constant and getImportMapping method are nil or don't exist"
+            end
+        end
+
+        if not mapping.is_a?({}.class)
+            raise "Somehow I did not end up with a hash for mapping.  mapping was a #{mapping.class}: #{mapping}"
+        end
+
+        return mapping
+    end
 
 
     ########################################################################
@@ -59,29 +76,28 @@ module UpdatableFromCsv
     # @opts [boolean] :truncate trunate Truncate the table before. Not implemented.
     ########################################################################
     def update_from_csv(filePath, mapping = nil, primaryKeyColumn = nil, options = {})
+        require 'csv'
 
-        if mapping.nil? and self::IMPORT_MAPPING.nil?
-            raise "No mapping defined: both mapping and #{self.name}.IMPORT_MAPPING constant are nil"
-        end
-
-        mapping = self::IMPORT_MAPPING if mapping.nil?
-
-        if not mapping.is_a?({}.class)
-            raise "Somehow I did not end up with a hash for mapping.  mapping was a #{mapping.class}: #{mapping}"
-        end
 
         seperator = options[:seperator]
-        seperator = Loadable::detectSeperator(filePath) if seperator.nil?
-
+        seperator = self::detectSeperator(filePath) if seperator.nil?
         notLoaded   = []
         dataInHashes = []
         CSV.open(filePath, 'rb', headers: :first_row, encoding: 'UTF-8', col_sep: seperator) do |csv|
+
+            mapping = guessMapping(csv, mapping)
+
             totalLines = `wc -l "#{filePath}"`.strip.split(' ')[0].to_i - 1
-            next unless get_prompt("Load #{filePath} (#{totalLines} lines)?")
+
+            if not Rails.env.test?
+                next unless get_prompt("Load #{filePath} (#{totalLines} lines)?")
+            end
+
             count = 0
             csv.each do |row|
                 count += 1
                 printProgress("Reading #{filePath}", count, totalLines)
+                entry = {}
                 begin
                     entry = processMappingAndRow(row, mapping)
                     dataInHashes << entry
@@ -89,8 +105,9 @@ module UpdatableFromCsv
                     entry[:errorMsg] = e.message
                     notLoaded << entry
                     if notLoaded.count < 4
-                        $stderr.puts "Could not read\n#{row}"
+                        $stderr.puts "Could not read following row \n#{row}\n  ... because #{e.message}"
                         byebug
+                        nil
                     end
                 end
             end
@@ -113,6 +130,8 @@ module UpdatableFromCsv
                 begin
 
                     primaryKeyColumn = self::IMPORT_PRIMARY_KEY if primaryKeyColumn.nil?
+
+                    #byebug if dataEntry[primaryKeyColumn] == 'bsoppethb@qq.com'
 
                     if primaryKeyColumn.is_a?({}.class)
                         key = primaryKeyColumn.keys.first
@@ -227,13 +246,20 @@ module UpdatableFromCsv
                     value = csvHandler.values.first
 
                 elsif csvHandler.keys.include?(:code)
-                    value = csvHandler[:code].call(row[csvHandler[:csvHeader]])
+                    raise ":code does not have a Proc for attribute #{classAttribute}.  The csvHandler is :\n#{csvHandler}" if not (csvHandler[:code].is_a?(Proc))
+                    if csvHandler.keys.include?(:csvHeader)
+                        value = csvHandler[:code].call(row[csvHandler[:csvHeader]])
+                    else
+                        value = csvHandler[:code].call()
+                    end
 
                 else
                     raise "Don't know what to do with the hash #{csvHandler.to_s}"
                 end
             else
-                raise "Don't know what to do with a csvHandler of type #{csvHandler.class.name}:\n#{csvHandler.to_s}"
+                byebug
+                nil
+                raise "Don't know what to do with a csvHandler of type #{csvHandler.class.name} for attribute #{classAttribute}.  The csvHandler is :\n#{csvHandler.to_s}"
             end
 
 

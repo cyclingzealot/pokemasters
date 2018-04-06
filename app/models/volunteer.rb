@@ -1,5 +1,5 @@
 class Volunteer < ApplicationRecord
-    extend UpdatableFromCsv
+    extend UpdatableFromCsv, ModelHelper
 #class Volunteer < ApplicationRecord
     #belongs_to :last_request
     #belongs_to :last_assignment
@@ -22,22 +22,36 @@ class Volunteer < ApplicationRecord
     end
 
 
+    def isMember?
+        self.is_member
+    end
+
+    def isGuest?
+        not self.is_member
+    end
+
     class ToastmastersVolunteer < Volunteer
 
         FREE_TOAST_HOST = :freeToastHost
         TM_HQ = :ToastmastersInternational
 
-        def self.import(csvFile)
-            case detectCsvFileType(csvFile)
+
+        def self.getImportMapping(csvFileObj)
+            case detectCsvFileType(csvFileObj)
             when Volunteer::ToastmastersVolunteer::FREE_TOAST_HOST
+                return ToastmastersVolunteer::IMPORT_MAPPING_FREE_TOAST_HOST
             when Volunteer::ToastmastersVolunteer::TM_HQ
+                return ToastmastersVolunteer::IMPORT_MAPPING_TM_HQ
+            else
+                raise "Can't figure out mapping for csvFileObj:\n#{csvFileObj}\n"
             end
         end
 
-        def self.detectCsvFileType(csvFile)
-            if csvFile.headers.include?('Customer ID')
+        def self.detectCsvFileType(csvFileObj)
+            headers = csvFileObj.first.to_h.keys
+            if headers.include?('Customer ID')
                 return Volunteer::ToastmastersVolunteer::TM_HQ
-            elsif csvFile.headers.include?('ROLESTATUS')
+            elsif headers.include?('ROLESTATUS')
                 return Volunteer::ToastmastersVolunteer::FREE_TOAST_HOST
             end
 
@@ -48,8 +62,12 @@ class Volunteer < ApplicationRecord
             name: "NAME",
             email: "EMAIL",
             cell: "PHONE",
-            tie_breaker_uuid: SecureRandom.uuid,
-            last_synched: DateTime.now(),
+            tie_breaker_uuid: {
+                code:   Proc.new { (SecureRandom.uuid)},
+            },
+            last_synched: {
+                literal:    DateTime.now(),
+            }
         }
 
         IMPORT_MAPPING_TM_HQ = {
@@ -57,10 +75,10 @@ class Volunteer < ApplicationRecord
             email: "Email",
             cell: "Mobile Phone",
             tie_breaker_uuid: {
-                code:   SecureRandom.uuid,
+                code:   Proc.new { (SecureRandom.uuid)},
             },
             last_synched: {
-                code:   DateTime.now(),
+                literal:   DateTime.now(),
             },
             is_member: {
                 csvHeader: "Paid Until",

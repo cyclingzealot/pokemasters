@@ -28,7 +28,7 @@ module ModelHelper
     # @param [String] doingWhatStr What do you want to tell the user you are doing
     ########################################################################
     def printProgress(doingWhatStr, count, total, zeroBased = true)
-        count =+ 1 if zeroBased
+        count += 1 if zeroBased
         puts "Started #{DateTime.now.strftime('%H:%M:%S')}" if count == 1
         progressStr = "#{count} / #{total} #{(count.to_f * 100/total).round} %"
         print ("\u001b[1000D" + progressStr + ' : ' + doingWhatStr)
