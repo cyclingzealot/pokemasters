@@ -29,6 +29,21 @@ class VolunteerTest < ActiveSupport::TestCase
 
    end
 
+
+   test "it should assign a role to a volunteer for a specified meeting date" do
+        member = Volunteer.find_by_email('gkidstone2@spotify.com')
+
+        date = "2018/04/04"
+
+        meeting = Meeting.findByDate(date)
+
+        meeting.assign(member, "Chair")
+
+        assignments = meeting.assignments
+
+        assert_equal "Chair", assignments[member].name
+   end
+
    test "it should error nicely" do
         assert_raises (Exception) {Volunteer.import("test/files/nonExistingFile.csv")}
    end
