@@ -1,5 +1,5 @@
 class Volunteer < ApplicationRecord
-include UpdatableFromCsv
+    include UpdatableFromCsv
 #class Volunteer < ApplicationRecord
     #belongs_to :last_request
     #belongs_to :last_assignment
@@ -21,12 +21,13 @@ include UpdatableFromCsv
 
     end
 
-    class ToastmastersVolunteer
+
+    class ToastmastersVolunteer < Volunteer
 
         FREE_TOAST_HOST = :freeToastHost
         TM_HQ = :ToastmastersInternational
 
-        def import(csvFile)
+        def self.import(csvFile)
             case detectCsvFileType(csvFile)
             when Volunteer::ToastmastersVolunteer::FREE_TOAST_HOST
             when Volunteer::ToastmastersVolunteer::TM_HQ
