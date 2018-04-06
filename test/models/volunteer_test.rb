@@ -20,6 +20,6 @@ class VolunteerTest < ActiveSupport::TestCase
    end
 
    test "it should error nicely" do
-        Volunteer.import("test/files/nonExistingFile.csv")
+        assert_raises (Exception) {Volunteer.import("test/files/nonExistingFile.csv")}
    end
 end
