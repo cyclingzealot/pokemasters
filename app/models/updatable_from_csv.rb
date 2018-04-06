@@ -1,4 +1,4 @@
-class UpdatableFromCsv < ApplicationRecord
+module UpdatableFromCsv
     # Ideally I'd like this to be in sge/lib/prompt.rb,
     # but I was having trouble loading it (circular dependency)
     # Returns false if the user does not enter Y or timeouts
@@ -242,6 +242,4 @@ class UpdatableFromCsv < ApplicationRecord
 
         returnHash
     end
-
-
-  end
+end
