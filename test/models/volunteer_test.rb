@@ -31,19 +31,25 @@ class VolunteerTest < ActiveSupport::TestCase
 
 
    test "it should assign a role to a volunteer for a specified meeting date" do
+        Volunteer::ToastmastersVolunteer::update_from_csv("test/files/membership-export.csv")
         member = Volunteer.find_by_email('gkidstone2@spotify.com')
 
-        date = "2018/04/04"
+        date = "2018/06/06"
 
-        meeting = Meeting.findByDate(date)
+        meeting = Meeting.find_by_date(date)
 
-        role = Role.findByShortName("Chair")
+        role = Role.find_by_short_name("chair")
+
+        assert_not_nil role
+        assert_not_nil meeting
+        assert_not_nil member
+
 
         meeting.assign(member, role)
 
         assignments = meeting.assignments
 
-        assert_equal "Chair", assignments[member].name
+        assert_equal "chair", assignments[member].name
    end
 
    test "it should error nicely" do

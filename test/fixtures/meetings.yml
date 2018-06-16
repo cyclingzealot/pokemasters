@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2018-06-13
+  time: 18:55
+  location: Robertson 617
+  agenda_uuid: b19926ad-78c8-46e4-ba8b-840ac451d75d
+
+two:
+  date: 2018-06-06
+  time: 18:55
+  location: Robertson 617
+  agenda_uuid: 535621fc-cc95-4b14-94b7-7aa0db825102

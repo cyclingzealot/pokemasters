@@ -10,11 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180406205312) do
+ActiveRecord::Schema.define(version: 20180616142622) do
+
+  create_table "assignments", force: :cascade do |t|
+    t.integer "volunteer_id", null: false
+    t.integer "meeting_id", null: false
+    t.integer "role_id", null: false
+    t.boolean "mia"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["meeting_id"], name: "index_assignments_on_meeting_id"
+    t.index ["role_id"], name: "index_assignments_on_role_id"
+    t.index ["volunteer_id"], name: "index_assignments_on_volunteer_id"
+  end
 
   create_table "dummies", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "meetings", force: :cascade do |t|
+    t.text "location"
+    t.text "agenda_uuid", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "date", null: false
+    t.time "time", null: false
+    t.index ["agenda_uuid"], name: "index_meetings_on_agenda_uuid", unique: true
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.text "short_name", null: false
+    t.text "human_name", null: false
+    t.boolean "is_critical", default: false, null: false
+    t.text "description_blurb"
+    t.text "instructions_blurb"
+    t.text "better_role_blurb"
+    t.text "equipement_blurb"
+    t.integer "rank"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["human_name"], name: "index_roles_on_human_name", unique: true
+    t.index ["short_name"], name: "index_roles_on_short_name", unique: true
   end
 
   create_table "volunteers", force: :cascade do |t|

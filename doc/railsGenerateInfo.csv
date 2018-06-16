@@ -1,65 +1,64 @@
-model	attribute	datatype	null	default	unique
-Client	name	text	FAUX		
-Client	email	text			VRAI
-Client	url	text			
-Chapter	name	text	FAUX		
-Chapter	email	text			VRAI
-Chapter	url	text			
-Volunteer	name	text	FAUX		
-Volunteer	email	text			true (with chapter)
-Volunteer	cell	text			VRAI
-Volunteer	tie_breaker_uuid	text	FAUX		VRAI
-Volunteer	last_synched	datetime	FAUX		
-Volunteer	last_request	references			
-Volunteer	last_assignment	references			
-Volunteer	chapter	references	FAUX		true (with chapter)
-Volunteer	dont_bug_unitl	date			
-Volunteer	dont_bug_ever	boolean			
-Volunteer	dont_bug_ever_because	text			
-Volunteer	is_member	boolean	FAUX	FAUX	
-Volunteer	next_role	references	FAUX	Timer	
-User	password	text			
-User	volunteer	references			VRAI
-User	enable	boolean	FAUX	VRAI	
-PositionTag	name	text	FAUX		VRAI
-Role	short_name	text	FAUX		VRAI
-					
-Role	human_name	text	FAUX		VRAI
-Role	is_critical	boolean	FAUX	FAUX	
-Role	description_blurb	text			
-Role	instructions_blurb	text			
-Role	better_role_blurb	text			
-Role	equipement_blurb	text			
-Role	rank	integer	FAUX		
-					
-RoleRuleComplex	for_role	references			
-	requires_role	references			
-	requires_position	references			
-	nb_times	integer			
-					
-RoleRulSimple	notice_days	integer	FAUX	0	
-RoleRulSimple	max_assignment_per_meeting	integer	FAUX	1	
-					
-Meeting	Date and time	dateTime	FAUX		VRAI
-	location	text	FAUX		
-	agenda_uuid	text	FAUX		VRAI
-					
-Request	access_uuid	text	FAUX		VRAI
-	volunteer	references	FAUX		
-	prefered_role	references	FAUX		
-	meeting	references	FAUX		
-	content	text	FAUX		
-	opened	boolean	FAUX	FAUX	
-	took_role	boolean	VRAI		
-					
-RequentHandler	request	references	FAUX		
-	ts_sent	datetime	VRAI		
-	ts_made	datetime	FAUX		
-	success	boolean	VRAI		
-	nosend_reason	text	VRAI		
-					
-Assignment	volunteer	references	FAUX		
-	meeting	references	FAUX		
-	rôle	references	FAUX		
-	#Unqiue contraint volunteer x meeting x rôle				
-	mia	boolean	VRAI		
+model,attribute,datatype,null,default,unique
+Client,name,text,FAUX,,
+Client,email,text,,,VRAI
+Client,url,text,,,
+Chapter,name,text,FAUX,,
+Chapter,email,text,,,VRAI
+Chapter,url,text,,,
+Volunteer,name,text,FAUX,,
+Volunteer,email,text,,,true (with chapter)
+Volunteer,cell,text,,,VRAI
+Volunteer,tie_breaker_uuid,text,FAUX,,VRAI
+Volunteer,last_synched,datetime,FAUX,,
+Volunteer,last_request,references,,,
+Volunteer,last_assignment,references,,,
+Volunteer,chapter,references,FAUX,,true (with chapter)
+Volunteer,dont_bug_unitl,date,,,
+Volunteer,dont_bug_ever,boolean,,,
+Volunteer,dont_bug_ever_because,text,,,
+Volunteer,is_member,boolean,FAUX,FAUX,
+Volunteer,next_role,references,FAUX,Timer,
+User,password,text,,,
+User,volunteer,references,,,VRAI
+User,enable,boolean,FAUX,VRAI,
+PositionTag,name,text,FAUX,,VRAI
+Role,short_name,text,FAUX,,VRAI
+Role,human_name,text,FAUX,,VRAI
+Role,is_critical,boolean,FAUX,FAUX,
+Role,description_blurb,text,,,
+Role,instructions_blurb,text,,,
+Role,better_role_blurb,text,,,
+Role,equipement_blurb,text,,,
+Role,rank,integer,FAUX,,
+,,,,,
+RoleRuleComplex,for_role,references,,,
+,requires_role,references,,,
+,requires_position,references,,,
+,nb_times,integer,,,
+,,,,,
+RoleRulSimple,notice_days,integer,FAUX,0,
+RoleRulSimple,max_assignment_per_meeting,integer,FAUX,1,
+,,,,,
+Meeting,Date and time,datetime,FAUX,,VRAI
+,location,text,FAUX,,
+,agenda_uuid,text,FAUX,,VRAI
+,,,,,
+Request,access_uuid,text,FAUX,,VRAI
+,volunteer,references,FAUX,,
+,prefered_role,references,FAUX,,
+,meeting,references,FAUX,,
+,content,text,FAUX,,
+,opened,boolean,FAUX,FAUX,
+,took_role,boolean,VRAI,,
+,,,,,
+RequentHandler,request,references,FAUX,,
+,ts_sent,datetime,VRAI,,
+,ts_made,datetime,FAUX,,
+,success,boolean,VRAI,,
+,nosend_reason,text,VRAI,,
+,,,,,
+Assignment,volunteer,references,FAUX,,
+,meeting,references,FAUX,,
+,rôle,references,FAUX,,
+,#Unqiue contraint volunteer x meeting x rôle,,,,
+,mia,boolean,VRAI,,

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+#one:
+#  volunteer: one
+#  meeting: one
+#  role: one
+#  mia: false
+#
+#two:
+#  volunteer: two
+#  meeting: two
+#  role: two
+#  mia: false
