@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180616142622) do
+ActiveRecord::Schema.define(version: 20180620045501) do
 
   create_table "assignments", force: :cascade do |t|
     t.integer "volunteer_id", null: false
@@ -37,6 +37,23 @@ ActiveRecord::Schema.define(version: 20180616142622) do
     t.date "date", null: false
     t.time "time", null: false
     t.index ["agenda_uuid"], name: "index_meetings_on_agenda_uuid", unique: true
+  end
+
+  create_table "mentoring_cycles", force: :cascade do |t|
+    t.date "start_date", null: false
+    t.date "end_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "mentorings", force: :cascade do |t|
+    t.integer "volunteer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "mentoring_cycle_id", null: false
+    t.index ["mentoring_cycle_id"], name: "index_mentorings_on_mentoring_cycle_id"
+    t.index ["volunteer_id"], name: "mentee"
+    t.index ["volunteer_id"], name: "mentor"
   end
 
   create_table "roles", force: :cascade do |t|
