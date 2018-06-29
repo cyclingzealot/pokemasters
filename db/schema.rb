@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180620045501) do
+ActiveRecord::Schema.define(version: 20180629053205) do
 
   create_table "assignments", force: :cascade do |t|
     t.integer "volunteer_id", null: false
@@ -51,6 +51,10 @@ ActiveRecord::Schema.define(version: 20180620045501) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "mentoring_cycle_id", null: false
+    t.integer "mentee_id", null: false
+    t.integer "mentor_id", null: false
+    t.index ["mentee_id"], name: "index_mentorings_on_mentee_id"
+    t.index ["mentor_id"], name: "index_mentorings_on_mentor_id"
     t.index ["mentoring_cycle_id"], name: "index_mentorings_on_mentoring_cycle_id"
     t.index ["volunteer_id"], name: "mentee"
     t.index ["volunteer_id"], name: "mentor"
