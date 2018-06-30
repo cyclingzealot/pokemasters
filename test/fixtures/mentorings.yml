@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  volunteer: one
-  volunteer: two
+  mentor: one
+  mentee: two
   mentoring_cycle: one
 
 two:
-  volunteer: two
-  volunteer: one
+  mentor: two
+  mentee: one
   mentoring_cycle: one
