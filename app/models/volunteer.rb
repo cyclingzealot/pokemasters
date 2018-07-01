@@ -30,6 +30,14 @@ class Volunteer < ApplicationRecord
         not self.is_member
     end
 
+
+    # Find avaailble mentor
+    # Someone in the active mentoring cycle
+    # Who has the least amount of mentees
+    def next_mentor
+
+    end
+
     class ToastmastersVolunteer < Volunteer
 
         FREE_TOAST_HOST = :freeToastHost
