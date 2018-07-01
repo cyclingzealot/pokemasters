@@ -1,0 +1,32 @@
+<%= form_with(model: volunteer_tagging, local: true) do |form| %>
+  <% if volunteer_tagging.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(volunteer_tagging.errors.count, "error") %> prohibited this volunteer_tagging from being saved:</h2>
+
+      <ul>
+      <% volunteer_tagging.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :volunteer_id %>
+    <%= form.text_field :volunteer_id, id: :volunteer_tagging_volunteer_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :volunteer_tag_id %>
+    <%= form.text_field :volunteer_tag_id, id: :volunteer_tagging_volunteer_tag_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :organization_id %>
+    <%= form.text_field :organization_id, id: :volunteer_tagging_organization_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

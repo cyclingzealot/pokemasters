@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Oganizations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Web</th>
+      <th>Enabled</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @oganizations.each do |oganization| %>
+      <tr>
+        <td><%= oganization.name %></td>
+        <td><%= oganization.email %></td>
+        <td><%= oganization.web %></td>
+        <td><%= oganization.enabled %></td>
+        <td><%= link_to 'Show', oganization %></td>
+        <td><%= link_to 'Edit', edit_oganization_path(oganization) %></td>
+        <td><%= link_to 'Destroy', oganization, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Oganization', new_oganization_path %>

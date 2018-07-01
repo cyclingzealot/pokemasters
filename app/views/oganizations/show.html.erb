@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @oganization.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @oganization.email %>
+</p>
+
+<p>
+  <strong>Web:</strong>
+  <%= @oganization.web %>
+</p>
+
+<p>
+  <strong>Enabled:</strong>
+  <%= @oganization.enabled %>
+</p>
+
+<%= link_to 'Edit', edit_oganization_path(@oganization) %> |
+<%= link_to 'Back', oganizations_path %>

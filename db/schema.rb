@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180630193952) do
+ActiveRecord::Schema.define(version: 20180701220145) do
 
   create_table "assignments", force: :cascade do |t|
     t.integer "volunteer_id", null: false
@@ -57,6 +57,15 @@ ActiveRecord::Schema.define(version: 20180630193952) do
     t.index ["mentoring_cycle_id"], name: "index_mentorings_on_mentoring_cycle_id"
   end
 
+  create_table "organizations", force: :cascade do |t|
+    t.text "name", null: false
+    t.text "email"
+    t.text "web"
+    t.boolean "enabled", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "roles", force: :cascade do |t|
     t.text "short_name", null: false
     t.text "human_name", null: false
@@ -70,6 +79,25 @@ ActiveRecord::Schema.define(version: 20180630193952) do
     t.datetime "updated_at", null: false
     t.index ["human_name"], name: "index_roles_on_human_name", unique: true
     t.index ["short_name"], name: "index_roles_on_short_name", unique: true
+  end
+
+  create_table "volunteer_taggings", force: :cascade do |t|
+    t.integer "volunteer_id"
+    t.integer "volunteer_tag_id"
+    t.integer "organization_id", default: 1
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_volunteer_taggings_on_organization_id"
+    t.index ["volunteer_id", "volunteer_tag_id", "organization_id"], name: "unique_combo", unique: true
+    t.index ["volunteer_id"], name: "index_volunteer_taggings_on_volunteer_id"
+    t.index ["volunteer_tag_id"], name: "index_volunteer_taggings_on_volunteer_tag_id"
+  end
+
+  create_table "volunteer_tags", force: :cascade do |t|
+    t.text "short_name"
+    t.string "name_english"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "volunteers", force: :cascade do |t|

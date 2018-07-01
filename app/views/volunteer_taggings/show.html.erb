@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Volunteer:</strong>
+  <%= @volunteer_tagging.volunteer %>
+</p>
+
+<p>
+  <strong>Volunteer tag:</strong>
+  <%= @volunteer_tagging.volunteer_tag %>
+</p>
+
+<p>
+  <strong>Organization:</strong>
+  <%= @volunteer_tagging.organization %>
+</p>
+
+<%= link_to 'Edit', edit_volunteer_tagging_path(@volunteer_tagging) %> |
+<%= link_to 'Back', volunteer_taggings_path %>
