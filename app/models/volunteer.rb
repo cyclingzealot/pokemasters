@@ -35,7 +35,7 @@ class Volunteer < ApplicationRecord
     # Someone in the active mentoring cycle
     # Who has the least amount of mentees
     def next_mentor
-
+       #TODO: what would be the sql for next mentor?
     end
 
     class ToastmastersVolunteer < Volunteer
