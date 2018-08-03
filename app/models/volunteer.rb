@@ -34,12 +34,25 @@ class Volunteer < ApplicationRecord
     # Find avaailble mentor
     # Someone in the active mentoring cycle
     # Who has the least amount of mentees
-    def next_mentor
-        # This query willl get you a mentor that doesn't have a mentee, although it doesn't take into consideration
+    def self.next_mentor
+        # This query willl get you a mentor that doesn't has the least mentee, although it doesn't take into consideration
         # Which volunteer have been tagged as mentor nor which is the current mentoring cycle
         # Volunteer tags has been implemented, but we still have to join it thorugh volunteer taggings
         # and get the current mentoring cycle
-        nextMentorVolunteerId = Volunteer.joins("LEFT JOIN mentorings on mentor_id = volunteers.id").group("volunteers.id").order('count_mentee_id, RANDOM()').count("mentee_id").take(1)
+        mentoringCycle = MentoringCycle.current_or_create
+        nextMentorVolunteerId = Volunteer.joins("LEFT JOIN mentorings on mentor_id = volunteers.id").group("volunteers.id").order('count_mentee_id, RANDOM()').count("mentee_id").keys.first
+        v = Volunteer.find(nextMentorVolunteerId)
+        return v
+    end
+
+    def self.next_mentee
+        mc = MentoringCycle.current_or_create
+
+        # TODO: this could be redone as a simple query on mentorings table
+        nextMenteeVolunteerId = Volunteer.joins("LEFT JOIN mentorings on mentee_id = volunteers.id and mentorings.id = #{mc.id}").group("volunteers.id").having("count(mentor_id)< ?", 2).order('count_mentor_id, RANDOM()').count("mentor_id").keys.first
+
+        v = Volunteer.find(nextMenteeVolunteerId)
+        return v
     end
 
     class ToastmastersVolunteer < Volunteer

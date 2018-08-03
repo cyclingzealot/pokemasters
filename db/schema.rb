@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180701220145) do
+ActiveRecord::Schema.define(version: 20180803174559) do
 
   create_table "assignments", force: :cascade do |t|
     t.integer "volunteer_id", null: false
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20180701220145) do
 
   create_table "mentoring_cycles", force: :cascade do |t|
     t.date "start_date", null: false
-    t.date "end_date", null: false
+    t.date "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

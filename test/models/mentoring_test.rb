@@ -6,14 +6,18 @@ class MentoringTest < ActiveSupport::TestCase
   # end
 
     test "it should assign a mentor to a mentee" do
-        mentor = Volunteer.find_available_mentor()
+        VolunteerTest::populateDb
+        mentor = Volunteer.next_mentor()
 
-        mentee = Volunteer.find_available_mentee()
+        assert mentor.class == Volunteer, "Mentor is a #{mentor.class}"
 
-        m = Mentoring.new(mentor: mentor, mentee: mentee)
+        mentee = Volunteer.next_mentee()
 
+        assert mentee.class == Volunteer, "Mentee is a #{mentee.class}"
 
-        m.save!
+        m = Mentoring.assign(mentor:mentor, mentee:mentee)
+
+        assert m.class == Mentoring, "Mentoring is a #{m.class}"
 
 
 
