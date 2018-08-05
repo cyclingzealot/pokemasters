@@ -1,3 +1,6 @@
+* We have a method now to assign a mentor and mentee
+* We are missing tags to this system.
+
 * Generate meeting
 * Generate role
 

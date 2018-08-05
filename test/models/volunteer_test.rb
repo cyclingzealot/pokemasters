@@ -18,6 +18,13 @@ class VolunteerTest < ActiveSupport::TestCase
         Volunteer::ToastmastersVolunteer::update_from_csv(filePaths[:freeToastHost])
    end
 
+
+   test "it can add a mentor tag to a volunteer" do
+        v = Volunteer.order_by("RANDOM()").first
+        v.mentor!
+        assert v.mentor?
+   end
+
    test "it should import a csv list of two csv members, sync them together" do
 
         self.class.populateDb

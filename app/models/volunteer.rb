@@ -6,6 +6,9 @@ class Volunteer < ApplicationRecord
     #belongs_to :chapter
     #belongs_to :next_role
 
+    #Reading https://stackoverflow.com/questions/2780798/has-and-belongs-to-many-vs-has-many-through#2781049, it seems we need to use a has_many through: because of organization (See VolunteerTaggins)
+    has_and_belongs_to_many :volunteer_tag
+
     def self.import(filePath)
         require 'csv'
         require 'securerandom'
@@ -19,6 +22,16 @@ class Volunteer < ApplicationRecord
             }
         end
 
+    end
+
+
+    def isMentor!
+        #You're going to have to go through volunteer taggings
+        #This volunteer tag is silly.  Are there that many tags?
+        #Yes, what is a volunteer can differ according to different organizations,
+        #but how many tags can they have?  mentor, guest, alumni, senior, charismatic,
+        #Reading https://stackoverflow.com/questions/2780798/has-and-belongs-to-many-vs-has-many-through#2781049, it seems we need to use a has_many through:
+        self.volunteer_tags << VolunteerTag.find_by_short_name("mentor")
     end
 
 
