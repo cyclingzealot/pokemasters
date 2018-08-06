@@ -20,7 +20,8 @@ class VolunteerTest < ActiveSupport::TestCase
 
 
    test "it can add a mentor tag to a volunteer" do
-        v = Volunteer.order_by("RANDOM()").first
+        self.class.populateDb
+        v = Volunteer.order("RANDOM()").first
         v.mentor!
         assert v.mentor?
    end

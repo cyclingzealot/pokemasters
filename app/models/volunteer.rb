@@ -25,7 +25,7 @@ class Volunteer < ApplicationRecord
     end
 
 
-    def isMentor!
+    def mentor!
         #You're going to have to go through volunteer taggings
         #This volunteer tag is silly.  Are there that many tags?
         #Yes, what is a volunteer can differ according to different organizations,
