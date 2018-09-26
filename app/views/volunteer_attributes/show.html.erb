@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Volunteer:</strong>
+  <%= @volunteer_attribute.volunteer %>
+</p>
+
+<p>
+  <strong>Organization:</strong>
+  <%= @volunteer_attribute.organization %>
+</p>
+
+<p>
+  <strong>Mentor:</strong>
+  <%= @volunteer_attribute.mentor %>
+</p>
+
+<%= link_to 'Edit', edit_volunteer_attribute_path(@volunteer_attribute) %> |
+<%= link_to 'Back', volunteer_attributes_path %>

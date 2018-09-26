@@ -1,0 +1,2 @@
+module VolunteerAttributesHelper
+end

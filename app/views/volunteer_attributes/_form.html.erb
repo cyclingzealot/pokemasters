@@ -1,0 +1,32 @@
+<%= form_with(model: volunteer_attribute, local: true) do |form| %>
+  <% if volunteer_attribute.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(volunteer_attribute.errors.count, "error") %> prohibited this volunteer_attribute from being saved:</h2>
+
+      <ul>
+      <% volunteer_attribute.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :volunteer %>
+    <%= form.text_field :volunteer, id: :volunteer_attribute_volunteer %>
+  </div>
+
+  <div class="field">
+    <%= form.label :organization %>
+    <%= form.text_field :organization, id: :volunteer_attribute_organization %>
+  </div>
+
+  <div class="field">
+    <%= form.label :mentor %>
+    <%= form.check_box :mentor, id: :volunteer_attribute_mentor %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

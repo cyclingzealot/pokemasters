@@ -1,8 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  short_name: MyText
-  name_english: MyString
+mentor:
+  short_name: mentor
+  name_english: Mentor
 
 two:
   short_name: MyText
