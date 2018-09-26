@@ -27,6 +27,7 @@ class Mentoring < ApplicationRecord
         if v.nil?
             $stderr.puts "No volunteer found for #{email}"
             byebug if Rails.env.development?
+            next
         end
 
         v.mentor!
@@ -42,10 +43,9 @@ class Mentoring < ApplicationRecord
 
     mc = MentoringCycle.current
 
-    byebug
     Mentoring.select(:mentor_id).where(mentoring_cycle: mc).distinct.each{|mentoring_mentor|
         mentor = mentoring_mentor.mentor
-        puts "#{mentor.to_s} has:"
+        puts "#{mentor.to_s} has:\n"
 
         Mentoring.where(mentor: mentor, mentoring_cycle: mc).each{|mentoring|
             puts mentoring.mentee.to_s

@@ -19,6 +19,14 @@ class VolunteerTest < ActiveSupport::TestCase
    end
 
 
+   test "it loads andrew graham properly" do
+        Volunteer::ToastmastersVolunteer::update_from_csv('test/files/membership-export-andrewG.csv')
+
+        assert Volunteer.count > 0, "no volunteers loaded"
+
+        assert_equal 1, Volunteer.where(email: 'andrewgrahamt@gmail.com').count, "No andrew graham found"
+   end
+
    test "it can add a mentor tag to a volunteer" do
         self.class.populateDb
         v = Volunteer.order("RANDOM()").first

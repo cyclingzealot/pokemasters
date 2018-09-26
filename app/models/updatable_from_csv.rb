@@ -78,12 +78,13 @@ module UpdatableFromCsv
     def update_from_csv(filePath, mapping = nil, primaryKeyColumn = nil, options = {})
         require 'csv'
 
+        raise "File does not exist" if not File.exists?(filePath)
 
         seperator = options[:seperator]
         seperator = self::detectSeperator(filePath) if seperator.nil?
         notLoaded   = []
         dataInHashes = []
-        CSV.open(filePath, 'rb', headers: :first_row, encoding: 'UTF-8', col_sep: seperator) do |csv|
+        CSV.open(filePath, 'r', headers: :first_row, col_sep: seperator) do |csv|
 
             mapping = guessMapping(csv, mapping)
 
@@ -94,6 +95,7 @@ module UpdatableFromCsv
             end
 
             count = 0
+            csv.rewind
             csv.each do |row|
                 count += 1
                 printProgress("Reading #{filePath}", count, totalLines)
