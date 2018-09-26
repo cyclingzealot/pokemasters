@@ -27,7 +27,7 @@ class MentoringTest < ActiveSupport::TestCase
     end
 
     test "it should make a list of mentor to mentee" do
-        Mentoring.makeListFromFiles(volunteersList: ["test/files/Club-Roster20180402.csv", "test/files/membership-export.csv"], mentorEmails: "test/files/mentorEmails.csv")
+        Mentoring.makeListFromFiles(volunteersList: ["test/files/Club-Roster20180402-shorter.csv", "test/files/membership-export-shorter.csv"], mentorEmails: "test/files/mentorEmails.csv")
     end
 
 

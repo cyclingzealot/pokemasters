@@ -42,13 +42,16 @@ class Mentoring < ApplicationRecord
 
     mc = MentoringCycle.current
 
-    Mentoring.select(:mentor_id).where(mentoring_cycle: mc).uniq.each{|mentoring_mentor|
+    byebug
+    Mentoring.select(:mentor_id).where(mentoring_cycle: mc).distinct.each{|mentoring_mentor|
         mentor = mentoring_mentor.mentor
         puts "#{mentor.to_s} has:"
 
         Mentoring.where(mentor: mentor, mentoring_cycle: mc).each{|mentoring|
             puts mentoring.mentee.to_s
         }
+
+        puts "\n"
     }
   end
 
