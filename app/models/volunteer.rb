@@ -56,20 +56,22 @@ class Volunteer < ApplicationRecord
         not self.is_member
     end
 
+    def to_s
+        "{#{id}}#{name} (#{email})"
+    end
+
 
     # Find avaailble mentor
     # Someone in the active mentoring cycle
     # Who has the least amount of mentees
     def self.next_mentor
-        # This query willl get you a mentor that doesn't has the least mentee, although it doesn't take into consideration
-        # Which volunteer have been tagged as mentor nor which is the current mentoring cycle
-        # Volunteer tags has been implemented, but we still have to join it thorugh volunteer taggings
-        # and get the current mentoring cycle
+        # This query willl get you a mentor that has the least mentee,
         mentoringCycle = MentoringCycle.current_or_create
-        nextMentorVolunteerId = Volunteer.joins("LEFT JOIN mentorings on mentor_id = volunteers.id").group("volunteers.id").order('count_mentee_id, RANDOM()').count("mentee_id").keys.first
+        nextMentorVolunteerId = Volunteer.joins(:volunteer_attributes).joins("LEFT JOIN mentorings on mentor_id = volunteers.id").where('volunteer_attributes.mentor': true).group("volunteers.id").order('count_mentee_id, RANDOM()').count("mentee_id").keys.first
         v = Volunteer.find(nextMentorVolunteerId)
         return v
     end
+
 
     def self.next_mentee
         mc = MentoringCycle.current_or_create
