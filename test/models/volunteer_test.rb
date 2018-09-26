@@ -24,7 +24,7 @@ class VolunteerTest < ActiveSupport::TestCase
 
         assert Volunteer.count > 0, "no volunteers loaded"
 
-        assert_equal 1, Volunteer.where(email: 'andrewgrahamt@gmail.com').count, "No andrew graham found"
+        assert_equal 1, Volunteer.where(email: 'andrewgrass@gmail.com').count, "No andrew grass found"
    end
 
    test "it can add a mentor tag to a volunteer" do
