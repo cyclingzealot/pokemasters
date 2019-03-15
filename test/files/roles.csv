@@ -1,0 +1,13 @@
+short_name,human_name,is_critical,description_blurb,instructions_blurb,better_role_blurb,equipement_blurb,rank
+ge,General Evaluator,false,Leads the evaluation & offers feedback on the proceeding of the meeting,Follow the agenda & introduce,,Pen & paper or the cheat sheet at https://github.com/cyclingzealot/toastmasters/raw/master/evalNoteSheet.pdf,10
+chair,Chair,true,Presides over the meeting,"Follow the agenda , introducing speakers.",,Have a question ready for introductions and make sure to review the agenda,9
+,Word of the day,false,Pick and describe the word of the day,Describe the word of the day and what the audience does when we hear it,,Have your word of the day picked before meeting starts and something (like a page up holder) to hold up the word when you are done,2
+,Quote,false,Give a quote and describe why you picked this quote,"Just pick a quote, say it","If you can, describe either the context of when the quote was made or why it was important to you",,3
+,Toast,false,Give a toast,,"There is some crowd synchronizing with this role.  Ideally you describe why the subject or person you picked is important, then tell people « If you would all like to stand up (wait a bit) and raise your glass (wait a little less) to ________________________.  It is important that last part has 5 words or less, that way the crowd can repeat.  You may find other social toasts where the speaker and audience raise their glass for the duration of the speach and don’t repeat »",Ideally a glass with liquid inside,4
+,Joke,false,Give a joke,,,Have your joke picked before the meeting,5
+,Timer,true,Time the crowd,,,"Green, yellow and red cards supplied by the club.  Phone timer or timer provided by club.",1
+,Grammarian,false,,,,,6
+,Speaker,true,"Do a speech, namely from the education program",,,,7
+,Table topics master,true,Conduct a table topics session,,,,8
+,General evaluator,false,Lead evaluation session and give commentry on how the meeting went,,,,10
+,Evaluator,true,Give feedback on the speaker’s speech and fill out evaluation form for the speech project,,,,11
