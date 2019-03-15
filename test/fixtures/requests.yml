@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  access_uuid: MyText
+  volunteer: one
+  prefered_role: one
+  meeting: one
+  content: MyText
+  opened: false
+  took_role: false
+
+two:
+  access_uuid: MyText
+  volunteer: two
+  prefered_role: two
+  meeting: two
+  content: MyText
+  opened: false
+  took_role: false
