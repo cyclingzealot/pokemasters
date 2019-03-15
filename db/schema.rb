@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180926050522) do
+ActiveRecord::Schema.define(version: 20190315155609) do
 
   create_table "assignments", force: :cascade do |t|
     t.integer "volunteer_id", null: false
@@ -64,6 +64,22 @@ ActiveRecord::Schema.define(version: 20180926050522) do
     t.boolean "enabled", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "requests", force: :cascade do |t|
+    t.text "access_uuid"
+    t.integer "volunteer_id"
+    t.integer "prefered_role_id"
+    t.integer "meeting_id"
+    t.text "content"
+    t.boolean "opened"
+    t.boolean "took_role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["access_uuid"], name: "index_requests_on_access_uuid", unique: true
+    t.index ["meeting_id"], name: "index_requests_on_meeting_id"
+    t.index ["prefered_role_id"], name: "index_requests_on_prefered_role_id"
+    t.index ["volunteer_id"], name: "index_requests_on_volunteer_id"
   end
 
   create_table "roles", force: :cascade do |t|
