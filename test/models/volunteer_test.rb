@@ -43,7 +43,7 @@ class VolunteerTest < ActiveSupport::TestCase
         #executive = Volunteer.find_by_email('bswornc@blogger.com')
         #alumni    = Volunteer.find_by_email('tkopech@constantcontact.com')
 
-        assert_equal 121, Volunteer.count
+        assert_equal 122, Volunteer.count
 
         assert member.isMember?
         assert guest.isGuest?
