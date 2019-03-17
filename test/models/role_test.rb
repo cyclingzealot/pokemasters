@@ -12,6 +12,7 @@ class RoleTest < ActiveSupport::TestCase
 
   test "It can load a csv file" do
     self.class.populateDb
-    assert_operator Role.count, :>, 0
+    assert_operator Role.count, :>, 10
   end
+
 end
