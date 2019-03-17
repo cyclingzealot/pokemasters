@@ -33,13 +33,17 @@ module UpdatableFromCsv
 
     def guessMapping(csvFileObj, mapping)
         if mapping.nil?
+            csvFileObj.first
             if self.class.const_defined?('IMPORT_MAPPING')
                 mapping = self::IMPORT_MAPPING
             elsif self.respond_to?('getImportMapping')
                 mapping = self::getImportMapping(csvFileObj)
+            elsif csvFileObj.headers.all? {|h| self.columns_hash.keys.include?(h)}
+                mapping = csvFileObj.headers.map{|h| [h.to_sym, h]}.to_h
             else
-                raise "No mapping defined: all mapping argument, #{self.name}.IMPORT_MAPPING constant and getImportMapping method are nil or don't exist"
+                raise "No mapping defined: all mapping argument, #{self.name}.IMPORT_MAPPING constant and getImportMapping method are nil or don't exist.  CSV file headers don't match attributes either"
             end
+            csvFileObj.rewind
         end
 
         if not mapping.is_a?({}.class)
@@ -131,7 +135,8 @@ module UpdatableFromCsv
 
                 begin
 
-                    primaryKeyColumn = self::IMPORT_PRIMARY_KEY if primaryKeyColumn.nil?
+                    primaryKeyColumn = self::IMPORT_PRIMARY_KEY if defined?(self::IMPORT_PRIMARY_KEY) and primaryKeyColumn.nil?
+                    primaryKeyColumn = mapping.keys.first if primaryKeyColumn.nil?
 
                     #byebug if dataEntry[primaryKeyColumn] == 'bsoppethb@qq.com'
 
