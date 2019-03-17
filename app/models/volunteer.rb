@@ -101,7 +101,7 @@ class Volunteer < ApplicationRecord
         end
 
         def self.detectCsvFileType(csvFileObj)
-            headers = csvFileObj.first.to_h.keys
+            headers = csvFileObj.headers
             if headers.map{|s| s.to_s}.include?("Member has opted-out of Toastmasters WHQ marketing mail")
                 return Volunteer::ToastmastersVolunteer::TM_HQ
             elsif headers.map{|s| s.to_s}.include?("Customer ID")
