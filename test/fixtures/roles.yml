@@ -6,16 +6,16 @@ one:
   is_critical: true
   description_blurb: "Presides over the meeting"
   instructions_blurb: "Follow the agenda , introducing speakers.  The general order is ...."
-  better_role_blurb: 
+  better_role_blurb:
   equipement_blurb: "Have a question ready for introductions and make sure to review the agenda at https://docs.google.com/document/d/1Es6mZH-mOtiDM4zpsgjNZ8-rJr4yiMeFno6vV7GVvLM/edit"
-  rank: 6
+  level: 6
 
 two:
   short_name: ge
   human_name: General evaluator
   is_critical: false
   description_blurb: Leads the evaluation & offers feedback on the proceeding of the meeting
-  instructions_blurb: Follow the agenda & introduce  
-  better_role_blurb: 
+  instructions_blurb: Follow the agenda & introduce
+  better_role_blurb:
   equipement_blurb: Pen & paper or the cheat sheet at https://github.com/cyclingzealot/toastmasters/raw/master/evalNoteSheet.pdf
-  rank: 10
+  level: 10
