@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190315155609) do
+ActiveRecord::Schema.define(version: 20190317191310) do
 
   create_table "assignments", force: :cascade do |t|
     t.integer "volunteer_id", null: false
@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 20190315155609) do
     t.text "instructions_blurb"
     t.text "better_role_blurb"
     t.text "equipement_blurb"
-    t.integer "rank"
+    t.integer "level"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["human_name"], name: "index_roles_on_human_name", unique: true
