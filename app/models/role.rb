@@ -18,8 +18,12 @@ class Role < ApplicationRecord
     end
 
     def suggestVolunteer
+        qualifiedVolunteers = Volunteer.joins(:registrations).joins(assignments: :roles).where('registrations.organization_id':  organization.id).where("roles.level >= #{self.level - 1}")
         #Always find someone eligeable who has not done the role
-        #If no one, rank by last done.
+
+        if qualifiedVolunteers == 0
+            #If no one, rank by last done.
+        end
 
     end
 
