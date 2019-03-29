@@ -78,4 +78,16 @@ class VolunteerTest < ActiveSupport::TestCase
    test "it should error nicely" do
         assert_raises (Exception) {Volunteer.import("test/files/nonExistingFile.csv")}
    end
+
+
+   test "it should suggest timer or role of lowest level for someone who has never done anything" do
+        #Volunteer.find_by_sql(
+
+        #r = Volunteer.suggestRoles()
+
+        #r.first(
+   end
+
+   test "it should suggest timer or role of lowest level for someone who has never done anything" do
+   end
 end
