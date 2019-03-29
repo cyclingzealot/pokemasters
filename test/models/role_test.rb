@@ -25,6 +25,9 @@ class RoleTest < ActiveSupport::TestCase
     Role.find_by_sname('timer').suggestVolunteers.each {|r| test_skip }
   end
 
+  test "It will suggest chair for someone who has not done it and is of sufficient level" do
+  end
+
 
 
 
