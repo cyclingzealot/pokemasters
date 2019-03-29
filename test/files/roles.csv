@@ -8,6 +8,6 @@ joke,Joke,FAUX,Give a joke,,,Have your joke picked before the meeting,1
 timer,Timer,VRAI,Time the crowd,,,"Green, yellow and red cards supplied by the club.  Phone timer or timer provided by club.",0
 gram,Grammarian,FAUX,,,,,2
 speaker,Speaker,VRAI,"Do a speech, namely from the education program",,,,4
-icebreaker,Speaker (icebreaker),,,,,,3
+icebreaker,Speaker (icebreaker),FAUX,,,,,3
 tt,Table topics master,VRAI,Conduct a table topics session,,,,3
 eval,Evaluator,VRAI,Give feedback on the speaker’s speech and fill out evaluation form for the speech project,,,,5
