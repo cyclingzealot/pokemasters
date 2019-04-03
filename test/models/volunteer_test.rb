@@ -27,6 +27,17 @@ class VolunteerTest < ActiveSupport::TestCase
         assert_equal 1, Volunteer.where(email: 'andrewgrass@gmail.com').count, "No andrew grass found"
    end
 
+
+   test "It will report the level of a volunteer with no assignmetn as 0" do
+        Volunteer::ToastmastersVolunteer::update_from_csv('test/files/membership-export-andrewG.csv')
+
+        assert Volunteer.count > 0, "no volunteers loaded"
+
+        v = Volunteer.where(email: 'andrewgrass@gmail.com')
+
+        assert_equal 0, v.level, "Level of volunteer #{v.to_s} is not 0"
+   end
+
    test "it can add a mentor tag to a volunteer" do
         self.class.populateDb
         v = Volunteer.order("RANDOM()").first
