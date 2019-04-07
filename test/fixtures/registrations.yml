@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  volunteer: 
+  organization: 
+  ts: 
+
+two:
+  volunteer: 
+  organization: 
+  ts: 
