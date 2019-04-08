@@ -35,7 +35,18 @@ class VolunteerTest < ActiveSupport::TestCase
 
         v = Volunteer.where(email: 'andrewgrass@gmail.com')
 
-        assert_equal 0, v.level, "Level of volunteer #{v.to_s} is not 0"
+        assert_equal 0, v.level(org: Organization.first), "Level of volunteer #{v.to_s} is not 0"
+   end
+
+   test "It will register a volunteer with no assignment as level 2 and report as such" do
+
+        v = Volunteer.where(email: 'andrewgrass@gmail.com')
+        assert_equal 1, Volunteer.where(email: 'andrewgrass@gmail.com').count, "No andrew grass found"
+
+        o = Organization.first
+        expectedLevel = 2
+        v.register(organization: o, level: expectedLevel)
+        assert_equal 2, v.level(org: o), "Level of volunteer #{v.to_s} is not #{expectedLevel}"
    end
 
    test "it can add a mentor tag to a volunteer" do
