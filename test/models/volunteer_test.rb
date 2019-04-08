@@ -34,14 +34,18 @@ class VolunteerTest < ActiveSupport::TestCase
         assert Volunteer.count > 0, "no volunteers loaded"
 
         v = Volunteer.where(email: 'andrewgrass@gmail.com')
+        v = v.take
 
         assert_equal 0, v.level(org: Organization.first), "Level of volunteer #{v.to_s} is not 0"
    end
 
    test "It will register a volunteer with no assignment as level 2 and report as such" do
+        Volunteer::ToastmastersVolunteer::update_from_csv('test/files/membership-export-andrewG.csv')
 
         v = Volunteer.where(email: 'andrewgrass@gmail.com')
-        assert_equal 1, Volunteer.where(email: 'andrewgrass@gmail.com').count, "No andrew grass found"
+        assert_equal 1, v.count, "No andrew grass found"
+
+        v = v.take
 
         o = Organization.first
         expectedLevel = 2
@@ -110,6 +114,4 @@ class VolunteerTest < ActiveSupport::TestCase
         #r.first(
    end
 
-   test "it should suggest timer or role of lowest level for someone who has never done anything" do
-   end
 end
