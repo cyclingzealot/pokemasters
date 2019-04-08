@@ -26,6 +26,18 @@ class Volunteer < ApplicationRecord
 
     end
 
+    def level(org: Organization.find(1))
+        rolesDone = Assignment.where(volunteer: self).joins(:role).joins(:meeting).where('meetings.organization_id': org.id)
+
+        return (rolesDone.maximum('roles.level') or 0)
+    end
+
+    def register(organization:, level: 0)
+        r = Registration.find_or_create_by(organization: organization, volunteer: self)
+        r.start_level = level
+        r.save!
+    end
+
 
     def mentor!
         #You're going to have to go through volunteer taggings
