@@ -17,15 +17,33 @@ class RoleTest < ActiveSupport::TestCase
 
 
   test "It will suggest only brand new volunteers" do
-    Role.find_by_sname('timer').suggestVolunteers.each {|r| assert_equal r.assignments.count, 0, "This volunteer had previous assinments"}
+    self.class.populateDb
+    r = Role.find_by_sname('timer')
+
+    byebug if r.nil? and Rails.env.test?
+
+
+    assert_not_nil r, "No timer role found"
+
+    r = suggestVolunteers.each {|r| assert_equal r.assignments.count, 0, "This volunteer had previous assinments"}
   end
 
 
   test "Once there are no volunteers to pick from, pick someone who has done the furthest away who has no role in the meetings in the next 2 weeks" do
-    Role.find_by_sname('timer').suggestVolunteers.each {|r| test_skip }
+    self.class.populateDb
+
+
+    r = Role.find_by_sname('timer')
+
+    byebug if r.nil? and Rails.env.test?
+
+    assert_not_nil r, "No timer role found"
+
+    r.suggestVolunteers.each {|r| skip("This test requires further implementation") }
   end
 
   test "It will suggest chair for someone who has not done it and is of sufficient level" do
+    skip("Need to develop scenario")
   end
 
 
