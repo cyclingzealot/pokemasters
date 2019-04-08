@@ -29,6 +29,11 @@ class Role < ApplicationRecord
         ## There probably needs to be some additional logic here
         ## What about the people who have never participated?
 
+        ## If you put the level in the registation, you could avoid having to join with assignments, meetings and roles so seek a qualified volunteer
+        ## You could tend left join with assingments, in the hopes to order by last date involved.  You can get the minimum time avlue with Time.at(0)
+
+        raise "This needs further work"
+
         qualifiedVolunteers = Volunteer.joins(:registration).
             joins(assignments: :roles).
             joins(assignments: :meetings).
