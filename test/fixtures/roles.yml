@@ -9,6 +9,7 @@ one:
   better_role_blurb:
   equipement_blurb: "Have a question ready for introductions and make sure to review the agenda at https://docs.google.com/document/d/1Es6mZH-mOtiDM4zpsgjNZ8-rJr4yiMeFno6vV7GVvLM/edit"
   level: 6
+  organization_id: 1
 
 two:
   short_name: ge
@@ -19,3 +20,4 @@ two:
   better_role_blurb:
   equipement_blurb: Pen & paper or the cheat sheet at https://github.com/cyclingzealot/toastmasters/raw/master/evalNoteSheet.pdf
   level: 10
+  organization_id: 1
