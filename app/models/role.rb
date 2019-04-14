@@ -32,13 +32,18 @@ class Role < ApplicationRecord
         ## If you put the level in the registation, you could avoid having to join with assignments, meetings and roles so seek a qualified volunteer
         ## You could tend left join with assingments, in the hopes to order by last date involved.  You can get the minimum time avlue with Time.at(0)
 
-        raise "This needs further work"
 
-        qualifiedVolunteers = Volunteer.joins(:registration).
-            joins(assignments: :roles).
-            joins(assignments: :meetings).
-            where('meetings.organization_id':  self.organization.id).   #What is a role?  Is it something that is part of an organization?  Yes
-            where("roles.level >= #{self.level - 1}").
+        #What do you need?
+        #the level of the role
+        #The level of the volunteer (in registration)
+        #The date the last role was done, if ever? (in assignments)
+
+
+        raise "This needs further work. Put a left join to assingments?"
+        #joins("LEFT JOIN student_enrollments ON courses.id = student_enrollments.course_id")
+
+        qualifiedVolunteers = Volunteer.joins(:registration).joins(:assignments).
+            where("registrations.level >= #{self.level - 1}").
             order('meetings.datetime ASC')
         #Always find someone eligeable who has not done the role
 
