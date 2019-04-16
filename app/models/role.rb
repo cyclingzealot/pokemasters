@@ -39,8 +39,62 @@ class Role < ApplicationRecord
         #The date the last role was done, if ever? (in assignments)
 
 
-        raise "This needs further work. Put a left join to assingments?"
         #joins("LEFT JOIN student_enrollments ON courses.id = student_enrollments.course_id")
+
+        possibleVolunteers = Set.new
+
+        baseQuery = Volunteer.joins(:registration).joins(:assignments)
+
+        maxVolunteers = 4
+        maxTries = 4
+        tries = 0
+        while(possibleVolunteers < maxVolunteers) do
+            tries += 1
+
+            case tries
+            #1. Has previous level, never done role, order by partication dat ASC
+            when 1
+                vols = baseQuery.
+                    where("registrations.level":  self.level - 1).
+                    order('meetings.datetime ASC')
+
+                possibleVolunteers.add(vols)
+
+            #2. Has adequate level, never have done role, order by partication date ASC
+            when 2
+                vols = baseQuery.
+                    where("registrations.level >= #{self.level - 1}").
+                    order('meetings.datetime ASC')
+
+                possibleVolunteers.add(vols)
+
+            #3. Has max level, may have done role, order by last time role done
+            when 3
+                maxLevel = Role.where(organization: self.organization).maximum(:level)
+
+                raise "This needs further work. join basequery with assignmens and find those who have done the role?"
+
+            #4. Don't look at level, last participation date
+            when maxTries
+            end
+
+        end
+
+
+
+
+
+        #Possible filter criterias:
+        #- One previous level
+        #- Adequetate level (one previous level or above)
+        #- Max level
+        #- Has neer done role, by participation date
+        #- Has done role, by time you did role
+
+
+        #OK, HERE IS THE ORDER:
+        #1. First you try to find volunteers who are of the previous level who have never done the role, by participation date
+        #2. If there are no suggestions or not enough, you do same as the previous step, without level criteria
 
         qualifiedVolunteers = Volunteer.joins(:registration).joins(:assignments).
             where("registrations.level >= #{self.level - 1}").
