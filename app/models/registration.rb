@@ -4,4 +4,6 @@ class Registration < ApplicationRecord
 
 
     validates :volunteer, uniqueness: {scope: :organization}
+
+    attr_accessor :level
 end

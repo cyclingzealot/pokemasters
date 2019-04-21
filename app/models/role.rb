@@ -48,7 +48,7 @@ class Role < ApplicationRecord
         maxVolunteers = 4
         maxTries = 4
         tries = 0
-        while(possibleVolunteers < maxVolunteers) do
+        while(possibleVolunteers.count < maxVolunteers) do
             tries += 1
 
             case tries
