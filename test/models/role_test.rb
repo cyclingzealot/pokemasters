@@ -25,7 +25,7 @@ class RoleTest < ActiveSupport::TestCase
 
     assert_not_nil r, "No timer role found"
 
-    r = suggestVolunteers.each {|r| assert_equal r.assignments.count, 0, "This volunteer had previous assinments"}
+    r.suggestVolunteers.each {|r| assert_equal r.assignments.count, 0, "This volunteer had previous assinments"}
   end
 
 

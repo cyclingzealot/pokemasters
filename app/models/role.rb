@@ -4,6 +4,9 @@ class Role < ApplicationRecord
     validates :short_name, :human_name, presence: true
 
 
+    belongs_to :organization
+
+
 
 
     def self.snameLike(searchStr)

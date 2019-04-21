@@ -50,6 +50,9 @@ class VolunteerTest < ActiveSupport::TestCase
         o = Organization.first
         expectedLevel = 2
         v.register(organization: o, level: expectedLevel)
+
+        assert_equal 1, Registration.where(organization: o, volunteer: v).count , "Did not find 1 registration for volunteer #{v.to_s}, organization #{o.to_s}"
+
         assert_equal 2, v.level(org: o), "Level of volunteer #{v.to_s} is not #{expectedLevel}"
    end
 

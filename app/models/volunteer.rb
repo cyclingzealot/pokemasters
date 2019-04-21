@@ -34,8 +34,11 @@ class Volunteer < ApplicationRecord
 
     def register(organization:, level: 0)
         r = Registration.find_or_create_by(organization: organization, volunteer: self)
+
+        byebug
         r.level = level
         r.save!
+        nil
     end
 
 
