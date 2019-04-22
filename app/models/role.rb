@@ -46,7 +46,8 @@ class Role < ApplicationRecord
 
         possibleVolunteers = Set.new
 
-        baseQuery = Volunteer.joins(:registration).joins(:assignments)
+        baseQuery = Volunteer.joins(:registration).joins(:assignment)
+        baseQuery.count #THis is a test can be removed once working
 
         maxVolunteers = 4
         maxTries = 4
@@ -75,6 +76,9 @@ class Role < ApplicationRecord
             when 3
                 maxLevel = Role.where(organization: self.organization).maximum(:level)
 
+                q = baseQuery.where("assignments.role": self)
+                q.count
+                byebug
                 raise "This needs further work. join basequery with assignmens and find those who have done the role?"
 
             #4. Don't look at level, last participation date
