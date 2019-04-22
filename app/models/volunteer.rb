@@ -35,7 +35,7 @@ class Volunteer < ApplicationRecord
         rgsc = rgs.count
         raise "More than one (#{rgsc}) registration found" if rgsc > 1
 
-        return rgs.first&.level
+        return (rgs.first&.level or 0)
     end
 
     def register(organization:, level: 0)
