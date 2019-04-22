@@ -4,5 +4,4 @@ class Registration < ApplicationRecord
 
 
     validates :volunteer, uniqueness: {scope: :organization}
-
 end
