@@ -11,6 +11,9 @@ class Volunteer < ApplicationRecord
 
     has_many :volunteer_attributes
 
+    has_many :registration
+    has_many :assignment
+
     def self.import(filePath)
         require 'csv'
         require 'securerandom'
@@ -29,7 +32,8 @@ class Volunteer < ApplicationRecord
     def level(org: Organization.find(1))
         rgs = Registration.where(volunteer: self, organization: org)
 
-        raise "More than one registration found" or rgs.count > 1
+        rgsc = rgs.count
+        raise "More than one (#{rgsc}) registration found" if rgsc > 1
 
         return rgs.first&.level
     end
@@ -37,10 +41,14 @@ class Volunteer < ApplicationRecord
     def register(organization:, level: 0)
         r = Registration.find_or_create_by(organization: organization, volunteer: self)
 
-        byebug
         r.level = level
         r.save!
         nil
+    end
+
+
+    def isRegisteredTo?(o)
+        registrations.where(organization: o).count >= 1
     end
 
 
