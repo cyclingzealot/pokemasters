@@ -52,7 +52,7 @@ class Role < ApplicationRecord
         maxVolunteers = 4
         maxTries = 4
         tries = 0
-        while(possibleVolunteers.count < maxVolunteers) do
+        while(possibleVolunteers.count < maxVolunteers and tries <= maxTries) do
             tries += 1
 
             case tries
@@ -62,6 +62,9 @@ class Role < ApplicationRecord
                     where("registrations.level":  self.level - 1).
                     order('meetings.datetime ASC')
 
+
+                # Remove from vols that have assignments in next meeting or ... same meeting or upcoming meetings?
+
                 possibleVolunteers.add(vols)
 
             #2. Has adequate level, never have done role, order by partication date ASC
@@ -70,16 +73,19 @@ class Role < ApplicationRecord
                     where("registrations.level >= #{self.level - 1}").
                     order('meetings.datetime ASC')
 
+                # Remove from vols that have assignments in next meeting or ... same meeting or upcoming meetings?
+
                 possibleVolunteers.add(vols)
 
             #3. Has max level, may have done role, order by last time role done
             when 3
                 maxLevel = Role.where(organization: self.organization).maximum(:level)
 
-                q = baseQuery.where("assignments.role": self)
-                q.count
-                byebug
-                raise "This needs further work. join basequery with assignmens and find those who have done the role?"
+                # Remove from vols that have assignments in next meeting or ... same meeting or upcoming meetings?
+
+                vols = baseQuery.joins(assignment: :meeting).where("assignments.role": self).where('registrations.level': maxLevel).order('meetings.date')
+
+                possibleVolunteers.add(vols)
 
             #4. Don't look at level, last participation date
             when maxTries
@@ -91,6 +97,7 @@ class Role < ApplicationRecord
 
 
 
+=begin
         #Possible filter criterias:
         #- One previous level
         #- Adequetate level (one previous level or above)
@@ -116,10 +123,11 @@ class Role < ApplicationRecord
 	            where('registrations.organization':  self.organization).
 	            order('roles.level, meetings.datetime ASC')
         end
+=end
 
 
 
-        return qualifiedVolunteers
+        return possibleVolunteers
 
     end
 
