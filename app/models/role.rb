@@ -7,6 +7,9 @@ class Role < ApplicationRecord
     belongs_to :organization
 
 
+    has_many :assignment
+
+
 
 
     def self.snameLike(searchStr)
@@ -65,7 +68,7 @@ class Role < ApplicationRecord
 
                 # Remove from vols that have assignments in next meeting or ... same meeting or upcoming meetings?
 
-                possibleVolunteers.add(vols)
+                possibleVolunteers.add(vols.all)
 
             #2. Has adequate level, never have done role, order by partication date ASC
             when 2
@@ -75,7 +78,7 @@ class Role < ApplicationRecord
 
                 # Remove from vols that have assignments in next meeting or ... same meeting or upcoming meetings?
 
-                possibleVolunteers.add(vols)
+                possibleVolunteers.add(vols.all)
 
             #3. Has max level, may have done role, order by last time role done
             when 3
@@ -85,7 +88,7 @@ class Role < ApplicationRecord
 
                 vols = baseQuery.joins(assignment: :meeting).where("assignments.role": self).where('registrations.level': maxLevel).order('meetings.date')
 
-                possibleVolunteers.add(vols)
+                possibleVolunteers.add(vols.all)
 
             #4. Don't look at level, last participation date
             when maxTries
