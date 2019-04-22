@@ -36,7 +36,9 @@ class VolunteerTest < ActiveSupport::TestCase
         v = Volunteer.where(email: 'andrewgrass@gmail.com')
         v = v.take
 
-        assert_equal 0, v.level(org: Organization.first), "Level of volunteer #{v.to_s} is not 0"
+        o = Organization.first
+
+        assert_equal 0, v.level(org: o), "Level of volunteer #{v.to_s} with #{o.to_s} is not 0"
    end
 
    test "It will register a volunteer with no assignment as level 2 and report as such" do
