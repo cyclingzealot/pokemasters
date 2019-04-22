@@ -27,9 +27,11 @@ class Volunteer < ApplicationRecord
     end
 
     def level(org: Organization.find(1))
-        rolesDone = Assignment.where(volunteer: self).joins(:role).joins(:meeting).where('meetings.organization_id': org.id)
+        rgs = Registration.where(volunteer: self, organization: org)
 
-        return (rolesDone.maximum('roles.level') or 0)
+        raise "More than one registration found" or rgs.count > 1
+
+        return rgs.first&.level
     end
 
     def register(organization:, level: 0)
