@@ -25,9 +25,16 @@ class RoleTest < ActiveSupport::TestCase
 
     assert_not_nil r, "No timer role found"
 
-    r.suggestVolunteers.each {|r| assert_equal r.assignments.count, 0, "This volunteer had previous assinments"}
+    r.suggestVolunteers.each {|v| assert_equal v.assignments.count, 0, "This volunteer had previous assinments"}
   end
 
+  test "It will not suggest not volunteers who already has a role" do
+        skip("Needs work")
+  end
+
+  test "It will not suggest not volunteers who already has that role in an upcoming meeting" do
+        skip("Needs work")
+  end
 
   test "Once there are no volunteers to pick from, pick someone who has done the furthest away who has no role in the meetings in the next 2 weeks" do
     self.class.populateDb
