@@ -46,7 +46,7 @@ class RequestTest < ActiveSupport::TestCase
 
 
     # All volunteers for chair should be
-    v2s.each { assert_true v2s.is_member?, "#{v2s.to_s} is not a member"}
+    v2s.each { |v| assert_true v.is_member?, "#{v.to_s} is not a member"}
 
 
   end
