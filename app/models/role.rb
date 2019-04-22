@@ -61,40 +61,47 @@ class Role < ApplicationRecord
             case tries
             #1. Has previous level, never done role, order by partication dat ASC
             when 1
-                vols = baseQuery.
+                vols = baseQuery.joins(assignment: :meeting).
                     where("registrations.level":  self.level - 1).
-                    order('meetings.datetime ASC')
+                    order('meetings.date ASC')
 
-
+                vols.to_sql
                 # Remove from vols that have assignments in next meeting or ... same meeting or upcoming meetings?
 
-                possibleVolunteers.add(vols.all)
+                possibleVolunteers.merge(vols.to_a)
 
             #2. Has adequate level, never have done role, order by partication date ASC
             when 2
-                vols = baseQuery.
+                vols = baseQuery.joins(assignment: :meeting).
                     where("registrations.level >= #{self.level - 1}").
-                    order('meetings.datetime ASC')
+                    order('meetings.date ASC')
 
+                vols.to_sql
                 # Remove from vols that have assignments in next meeting or ... same meeting or upcoming meetings?
 
-                possibleVolunteers.add(vols.all)
+                possibleVolunteers.merge(vols.to_a)
 
             #3. Has max level, may have done role, order by last time role done
             when 3
                 maxLevel = Role.where(organization: self.organization).maximum(:level)
 
-                # Remove from vols that have assignments in next meeting or ... same meeting or upcoming meetings?
 
                 vols = baseQuery.joins(assignment: :meeting).where("assignments.role": self).where('registrations.level': maxLevel).order('meetings.date')
+                vols.to_sql
+                # Remove from vols that have assignments in next meeting or ... same meeting or upcoming meetings?
 
-                possibleVolunteers.add(vols.all)
+                possibleVolunteers.merge(vols.to_a)
 
             #4. Don't look at level, last participation date
             when maxTries
+
+                raise "You need to drop level, just look at partipcation date - with a left join so unassigned"
             end
 
         end
+
+
+        raise "You need to remove volunteers in all tries that have a future assignment.  Add a days prep property for roles"
 
 
 
