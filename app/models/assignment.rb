@@ -5,8 +5,12 @@ class Assignment < ApplicationRecord
 
   validate :has_registration_with_org
 
+  validates :volunteer, presence: true
+  validates :meeting, presence: true
+  validates :role, presence: true
 
-  def initialize(volunteer:, meeting:, role:)
+
+  def initialize(volunteer: nil, meeting: nil, role: nil)
     @volunteer = volunteer
     @meeting   = meeting
     @role      = role
