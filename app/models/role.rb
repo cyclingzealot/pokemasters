@@ -49,40 +49,47 @@ class Role < ApplicationRecord
 
         possibleVolunteers = Set.new
 
-        baseQuery = Volunteer.joins(:registration).joins(:assignment)
+        baseQuery = Volunteer.joins(:registration)
         baseQuery.count #THis is a test can be removed once working
 
         maxVolunteers = 4
-        maxTries = 4
+        maxTries = 6
         tries = 0
         while(possibleVolunteers.count < maxVolunteers and tries <= maxTries) do
-            tries += 1
+            tries +=  1
 
             case tries
-            #1. Has previous level, never done role, order by partication dat ASC
-            when 1
-                vols = baseQuery.joins(assignment: :meeting).
-                    where("registrations.level":  self.level - 1).
-                    order('meetings.date ASC')
 
-                vols.to_sql
-                # Remove from vols that have assignments in next meeting or ... same meeting or upcoming meetings?
+            # Volunteer registered but never done anything.
+            when 0
+                vols = baseQuery.where("registrations.level <= ?", self.level).select{|v| v.assignments == 0}
 
                 possibleVolunteers.merge(vols.to_a)
 
-            #2. Has adequate level, never have done role, order by partication date ASC
+            # Has previous level, never done role, order by partication dat ASC
             when 2
                 vols = baseQuery.joins(assignment: :meeting).
-                    where("registrations.level >= #{self.level - 1}").
+                    where("registrations.level = ?", self.level-1).   # Is at the previous level
+                    where("assignments.role != ?", self.id).
                     order('meetings.date ASC')
 
                 vols.to_sql
-                # Remove from vols that have assignments in next meeting or ... same meeting or upcoming meetings?
 
                 possibleVolunteers.merge(vols.to_a)
 
-            #3. Has max level, may have done role, order by last time role done
+            # Has adequate level, never have done role, order by partication date ASC
             when 3
+                vols = baseQuery.joins(assignment: :meeting).
+                    where("registrations.level >= #{self.level - 1}").
+                    where("assignments.role != ?", self.id).
+                    order('meetings.date ASC')
+
+                vols.to_sql
+
+                possibleVolunteers.merge(vols.to_a)
+
+            # Has max level, may have done role, order by last time role done
+            when 4
                 maxLevel = Role.where(organization: self.organization).maximum(:level)
 
 
@@ -95,7 +102,9 @@ class Role < ApplicationRecord
             #4. Don't look at level, last participation date
             when maxTries
 
-                raise "You need to drop level, just look at partipcation date - with a left join so unassigned"
+                vols = baseQuery.left_outer_joins(assignment: :meeting).order('meetings.date')
+
+                possibleVolunteers.merge(vols.to_a)
             end
 
         end
