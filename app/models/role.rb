@@ -70,7 +70,7 @@ class Role < ApplicationRecord
             when 2
                 vols = baseQuery.joins(assignment: :meeting).
                     where("registrations.level = ?", self.level-1).   # Is at the previous level
-                    where("assignments.role != ?", self.id).
+                    where("assignments.role_id != ?", self.id).
                     order('meetings.date ASC')
 
                 vols.to_sql
@@ -81,7 +81,7 @@ class Role < ApplicationRecord
             when 3
                 vols = baseQuery.joins(assignment: :meeting).
                     where("registrations.level >= #{self.level - 1}").
-                    where("assignments.role != ?", self.id).
+                    where("assignments.role_id != ?", self.id).
                     order('meetings.date ASC')
 
                 vols.to_sql
