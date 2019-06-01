@@ -1,0 +1,7 @@
+Seems to be happening here:
+.rvm/gems/ruby-2.4.1/gems/activerecord-5.1.7/lib/active_record/attribute_methods/read.rb:71
+
+ 70         def _read_attribute(attr_name) # :nodoc:
+ 71           @attributes.fetch_value(attr_name.to_s) { |n| yield n if block_given? }
+ 72         end
+
