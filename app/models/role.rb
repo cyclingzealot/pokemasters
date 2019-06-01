@@ -110,7 +110,8 @@ class Role < ApplicationRecord
         end
 
 
-        raise "You need to remove volunteers in all tries that have a future assignment.  Add a days prep property for roles"
+        #Maybe we still need to do this?  Removing for now.  It is, after all, suggestions
+        #raise "You need to remove volunteers in all tries that have a future assignment.  Add a days prep property for roles"
 
 
 
